@@ -1,7 +1,7 @@
 import Ship from '../components/Ship';
 
 test('hit() function takes a number and marks position as "x"', () => {
-    const newShip = Ship(4);
+    const newShip = Ship('newShip', 4);
     const num = 1;
 
     const updatedHealth = newShip.hit(num);
@@ -10,7 +10,7 @@ test('hit() function takes a number and marks position as "x"', () => {
 });
 
 test('isSunk() returns true when all positions have been hit', () => {
-    const newShip = Ship(1);
+    const newShip = Ship('newShip', 1);
 
     newShip.hit(0);
 
@@ -20,7 +20,7 @@ test('isSunk() returns true when all positions have been hit', () => {
 });
 
 test('isSunk() returns false when not all positions have been hit', () => {
-    const newShip = Ship(1);
+    const newShip = Ship('newShip', 1);
 
     const isSunk = newShip.isSunk();
 

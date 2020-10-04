@@ -1,4 +1,4 @@
-const Ship = (length) => {
+const Ship = (name, length) => {
     const health = [];
 
     for (let i = 0; i < length; i++) {
@@ -13,6 +13,8 @@ const Ship = (length) => {
     const isSunk = () => health.every((item) => item === 'x');
 
     return {
+        name,
+        length,
         hit,
         isSunk,
     };
