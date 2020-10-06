@@ -9,6 +9,12 @@ const Gameboard = () => {
             }
         }
 
+        if (orientation === 'vertical') {
+            for (let i = y; i < y + ship.length; i++) {
+                board[i].splice(x, 1, ship.name);
+            }
+        }
+
         return board;
     };
 

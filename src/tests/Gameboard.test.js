@@ -42,3 +42,25 @@ test('Place ship horizontally', () => {
         ],
     );
 });
+
+test('Place ship vertically', () => {
+    const ship = Ship('ship', 4);
+
+    const gameboard = Gameboard();
+    const updatedBoard = gameboard.placeShip(ship, 'vertical', 2, 3);
+
+    expect(updatedBoard).toEqual(
+        [
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, 'ship', null, null, null, null, null, null],
+            [null, null, null, 'ship', null, null, null, null, null, null],
+            [null, null, null, 'ship', null, null, null, null, null, null],
+            [null, null, null, 'ship', null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+            [null, null, null, null, null, null, null, null, null, null],
+        ],
+    );
+});
