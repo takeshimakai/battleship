@@ -1,5 +1,6 @@
 const Ship = (name, length) => {
     const health = [];
+    const getHealth = () => health;
 
     for (let i = 0; i < length; i++) {
         health.push('o');
@@ -15,6 +16,7 @@ const Ship = (name, length) => {
     return {
         name,
         length,
+        getHealth,
         hit,
         isSunk,
     };

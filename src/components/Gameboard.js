@@ -4,23 +4,36 @@ const Gameboard = () => {
 
     const placeShip = (ship, orientation, y, x) => {
         if (orientation === 'horizontal') {
+            let index = 0;
             for (let i = x; i < x + ship.length; i++) {
-                board[y].splice(i, 1, ship.name);
+                board[y][i] = { ship, index };
+                index += 1;
             }
         }
 
         if (orientation === 'vertical') {
+            let index = 0;
             for (let i = y; i < y + ship.length; i++) {
-                board[i].splice(x, 1, ship.name);
+                board[i][x] = { ship, index };
+                index += 1;
             }
         }
+    };
 
-        return board;
+    const receiveAttack = (y, x) => {
+        if (board[y][x] === null) {
+            board[y][x] = 'x';
+        }
+
+        if (board[y][x].ship) {
+            board[y][x].ship.hit(board[y][x].index);
+        }
     };
 
     return {
         getBoard,
         placeShip,
+        receiveAttack,
     };
 };
 
