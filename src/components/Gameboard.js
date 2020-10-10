@@ -6,7 +6,7 @@ const Gameboard = () => {
         if (orientation === 'horizontal') {
             let index = 0;
             for (let i = x; i < x + ship.length; i++) {
-                board[y][i] = { ship, index };
+                board[y][i] = { ship, index, hit: false };
                 index += 1;
             }
         }
@@ -14,7 +14,7 @@ const Gameboard = () => {
         if (orientation === 'vertical') {
             let index = 0;
             for (let i = y; i < y + ship.length; i++) {
-                board[i][x] = { ship, index };
+                board[i][x] = { ship, index, hit: false };
                 index += 1;
             }
         }
@@ -22,11 +22,12 @@ const Gameboard = () => {
 
     const receiveAttack = (y, x) => {
         if (board[y][x] === null) {
-            board[y][x] = 'x';
+            board[y][x] = { hit: true };
         }
 
-        if (board[y][x].ship) {
+        if (board[y][x].ship && board[y][x].hit === false) {
             board[y][x].ship.hit(board[y][x].index);
+            board[y][x].hit = true;
         }
     };
 

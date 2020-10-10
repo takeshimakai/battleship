@@ -33,7 +33,7 @@ test('Place ship horizontally', () => {
         [
             [null, null, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, { ship, index: 0 }, { ship, index: 1 }, { ship, index: 2 }, { ship, index: 3 }, null, null, null],
+            [null, null, null, { ship, index: 0, hit: false }, { ship, index: 1, hit: false }, { ship, index: 2, hit: false }, { ship, index: 3, hit: false }, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
@@ -57,10 +57,10 @@ test('Place ship vertically', () => {
         [
             [null, null, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
-            [null, null, null, { ship, index: 0 }, null, null, null, null, null, null],
-            [null, null, null, { ship, index: 1 }, null, null, null, null, null, null],
-            [null, null, null, { ship, index: 2 }, null, null, null, null, null, null],
-            [null, null, null, { ship, index: 3 }, null, null, null, null, null, null],
+            [null, null, null, { ship, index: 0, hit: false }, null, null, null, null, null, null],
+            [null, null, null, { ship, index: 1, hit: false }, null, null, null, null, null, null],
+            [null, null, null, { ship, index: 2, hit: false }, null, null, null, null, null, null],
+            [null, null, null, { ship, index: 3, hit: false }, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
@@ -69,7 +69,7 @@ test('Place ship vertically', () => {
     );
 });
 
-test('receiveAttack function marks "x" if coordinate is null', () => {
+test('receiveAttack function enters object "hit: true" if coordinate is null', () => {
     const gameboard = Gameboard();
     gameboard.receiveAttack(0, 1);
 
@@ -77,7 +77,7 @@ test('receiveAttack function marks "x" if coordinate is null', () => {
 
     expect(updatedBoard).toEqual(
         [
-            [null, 'x', null, null, null, null, null, null, null, null],
+            [null, { hit: true }, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
             [null, null, null, null, null, null, null, null, null, null],
