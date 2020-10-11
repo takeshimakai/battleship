@@ -102,3 +102,24 @@ test('receiveAttack function calls hit function if coordinate has a ship', () =>
 
     expect(shipHealth).toEqual(['o', 'x', 'o', 'o']);
 });
+
+test('allShipsSunk() returns false when ships not sunk', () => {
+    const ship = Ship('ship', 2);
+
+    const gameboard = Gameboard();
+    gameboard.placeShip(ship, 'horizontal', 4, 2);
+    gameboard.receiveAttack(4, 2);
+
+    expect(gameboard.allShipsSunk()).toBe(false);
+});
+
+test('allShipsSunk() returns true when ships sunk', () => {
+    const ship = Ship('ship', 2);
+
+    const gameboard = Gameboard();
+    gameboard.placeShip(ship, 'horizontal', 4, 2);
+    gameboard.receiveAttack(4, 2);
+    gameboard.receiveAttack(4, 3);
+
+    expect(gameboard.allShipsSunk()).toEqual(true);
+});

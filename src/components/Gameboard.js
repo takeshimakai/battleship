@@ -2,6 +2,8 @@ const Gameboard = () => {
     const board = Array(10).fill(null).map(() => Array(10).fill(null));
     const getBoard = () => board;
 
+    const placedShips = [];
+
     const placeShip = (ship, orientation, y, x) => {
         if (orientation === 'horizontal') {
             let index = 0;
@@ -18,6 +20,8 @@ const Gameboard = () => {
                 index += 1;
             }
         }
+
+        placedShips.push(ship);
     };
 
     const receiveAttack = (y, x) => {
@@ -31,10 +35,13 @@ const Gameboard = () => {
         }
     };
 
+    const allShipsSunk = () => placedShips.every((ship) => ship.isSunk());
+
     return {
         getBoard,
         placeShip,
         receiveAttack,
+        allShipsSunk,
     };
 };
 
