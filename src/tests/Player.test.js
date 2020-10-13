@@ -37,4 +37,24 @@ describe('autoAttack() functionality', () => {
             ])
         );
     });
+
+    test('autoAttack() gets called repeatedly until empty cell is attacked', () => {
+        const board = playerBoard.getBoard();
+        
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                if (board[i][j] === null) {
+                    computer.autoAttack(playerBoard);
+                    i = 0;
+                    j = 0;
+                }
+            }
+        }
+
+        expect(playerBoard.getBoard()).toEqual(
+            expect.arrayContaining([
+                expect.not.arrayContaining([null])
+            ])
+        );
+    });
 });
