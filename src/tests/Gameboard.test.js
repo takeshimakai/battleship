@@ -30,7 +30,24 @@ test('Board is a 10x10 grid', () => {
     );
 });
 
-describe.only('placeShip() functionality', () => {
+describe('isValidPlacement() functionality', () => {
+    const ship = Ship('ship', 4);
+
+    test('returns false if one of the cell is occupied by another ship', () => {
+        const anotherShip = Ship ('anotherShip', 4);
+
+        gameboard.placeShip(ship, 'horizontal', 1, 0);
+
+        expect(gameboard.isValidPlacement(anotherShip, 'vertical', 0, 0)).toBeFalsy();
+    });
+
+    test('returns false if ship extends beyond the grid', () => {
+        expect(gameboard.isValidPlacement(ship, 'horizontal', 0, 9)).toBeFalsy();
+        expect(gameboard.isValidPlacement(ship, 'vertical', 9, 0)).toBeFalsy();
+    });
+});
+
+describe('placeShip() functionality', () => {
     const ship = Ship('ship', 4);
 
     test('Place ship horizontally', () => {
@@ -70,16 +87,6 @@ describe.only('placeShip() functionality', () => {
             ],
         );
     });
-
-    test('if cell is occupied, throw error', () => {
-        const anotherShip = Ship('anotherShip', 4);
-
-        gameboard.placeShip(ship, 'horizontal', 0, 0);
-        
-        expect(() => {
-            gameboard.placeShip(anotherShip, 'vertical', 0, 0)
-        }).toThrow();
-    })
 });
 
 describe('receiveAttack() functionality', () => {

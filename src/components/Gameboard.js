@@ -4,28 +4,50 @@ const Gameboard = () => {
 
     const placedShips = [];
 
-    const placeShip = (ship, orientation, y, x) => {
-        if (board[y][x] !== null) {
-            throw new Error('This cell is occupied');
-        }
-
+    const isValidPlacement = (ship, orientation, y, x) => {
         if (orientation === 'horizontal') {
-            let index = 0;
+            if (x + ship.length > board.length) {
+                return false;
+            }
+
             for (let i = x; i < x + ship.length; i++) {
-                board[y][i] = { ship, index, hit: false };
-                index += 1;
+                if (board[y][i] !== null) {
+                    return false;
+                }
             }
-        }
+        } else if (orientation === 'vertical') {
+            if (y + ship.length > board.length) {
+                return false;
+            }
 
-        if (orientation === 'vertical') {
-            let index = 0;
             for (let i = y; i < y + ship.length; i++) {
-                board[i][x] = { ship, index, hit: false };
-                index += 1;
+                if (board[i][x] !== null) {
+                    return false;
+                }
             }
         }
+        return true;
+    };
 
-        placedShips.push(ship);
+    const placeShip = (ship, orientation, y, x) => {
+        const cellsAreEmpty = isValidPlacement(ship, orientation, y, x);
+
+        if (cellsAreEmpty) {
+            if (orientation === 'horizontal') {
+                let index = 0;
+                for (let i = x; i < x + ship.length; i++) {
+                    board[y][i] = { ship, index, hit: false };
+                    index += 1;
+                }
+            } else if (orientation === 'vertical') {
+                let index = 0;
+                for (let i = y; i < y + ship.length; i++) {
+                    board[i][x] = { ship, index, hit: false };
+                    index += 1;
+                }
+            }
+            placedShips.push(ship);
+        }
     };
 
     const receiveAttack = (y, x) => {
@@ -43,6 +65,7 @@ const Gameboard = () => {
 
     return {
         getBoard,
+        isValidPlacement,
         placeShip,
         receiveAttack,
         allShipsSunk,
