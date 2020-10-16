@@ -5,6 +5,10 @@ const Gameboard = () => {
     const placedShips = [];
 
     const placeShip = (ship, orientation, y, x) => {
+        if (board[y][x] !== null) {
+            throw new Error('This cell is occupied');
+        }
+
         if (orientation === 'horizontal') {
             let index = 0;
             for (let i = x; i < x + ship.length; i++) {

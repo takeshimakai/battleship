@@ -30,11 +30,11 @@ test('Board is a 10x10 grid', () => {
     );
 });
 
-describe('placeShip() functionality', () => {
+describe.only('placeShip() functionality', () => {
+    const ship = Ship('ship', 4);
+
     test('Place ship horizontally', () => {
-        const ship = Ship('ship', 4);
-    
-        gameboard.placeShip(ship, 'horizontal', 2, 3);
+    gameboard.placeShip(ship, 'horizontal', 2, 3);
     
         expect(gameboard.getBoard()).toEqual(
             [
@@ -53,8 +53,6 @@ describe('placeShip() functionality', () => {
     });
     
     test('Place ship vertically', () => {
-        const ship = Ship('ship', 4);
-    
         gameboard.placeShip(ship, 'vertical', 2, 3);
     
         expect(gameboard.getBoard()).toEqual(
@@ -72,6 +70,16 @@ describe('placeShip() functionality', () => {
             ],
         );
     });
+
+    test('if cell is occupied, throw error', () => {
+        const anotherShip = Ship('anotherShip', 4);
+
+        gameboard.placeShip(ship, 'horizontal', 0, 0);
+        
+        expect(() => {
+            gameboard.placeShip(anotherShip, 'vertical', 0, 0)
+        }).toThrow();
+    })
 });
 
 describe('receiveAttack() functionality', () => {
