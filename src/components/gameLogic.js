@@ -1,6 +1,7 @@
 import Ship from './Ship';
 import Gameboard from './Gameboard';
 import Player from './Player';
+import { randomCoords, randomOrientation } from './helpers';
 
 const gameLogic = () => {
     const createShips = () => {
@@ -25,6 +26,13 @@ const gameLogic = () => {
         return ships;
     };
 
+    const placeShipRandomly = (gameboard, ship) => {
+        const [y, x] = randomCoords();
+        const orientation = randomOrientation();
+
+        gameboard.placeShip(ship, orientation, y, x);
+    };
+
     const initGame = () => {
         const player = Player();
         const computer = Player('computer');
@@ -32,7 +40,16 @@ const gameLogic = () => {
         const playerBoard = Gameboard();
         const computerBoard = Gameboard();
 
-        
+        const playerShips = createShips();
+        const computerShips = createShips();
+
+        playerShips.forEach((ship) => {
+            placeShipRandomly(playerBoard, ship);
+        });
+    };
+
+    return {
+        initGame,
     };
 };
 

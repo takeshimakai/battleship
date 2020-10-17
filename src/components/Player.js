@@ -1,9 +1,10 @@
+import randomCoords from './helpers';
+
 const Player = (type = 'human') => {
     const attack = (y, x, board) => board.receiveAttack(y, x);
 
     const autoAttack = (board) => {
-        const y = Math.floor(Math.random() * Math.floor(10));
-        const x = Math.floor(Math.random() * Math.floor(10));
+        const [y, x] = randomCoords();
 
         const cell = board.getBoard()[y][x];
 
