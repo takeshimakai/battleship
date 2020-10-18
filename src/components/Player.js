@@ -1,4 +1,4 @@
-import randomCoords from './helpers';
+import { randomCoords } from './helpers';
 
 const Player = (type = 'human') => {
     const attack = (y, x, board) => board.receiveAttack(y, x);

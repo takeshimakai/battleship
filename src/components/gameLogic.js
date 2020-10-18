@@ -1,55 +1,27 @@
-import Ship from './Ship';
 import Gameboard from './Gameboard';
 import Player from './Player';
-import { randomCoords, randomOrientation } from './helpers';
+import { createShips } from './helpers';
 
 const gameLogic = () => {
-    const createShips = () => {
-        const ships = [
-            {
-                carrier: Ship('carrier', 5),
-            },
-            {
-                battleship: Ship('battleship', 4),
-            },
-            {
-                cruiser: Ship('cruiser', 3),
-            },
-            {
-                destroyer: Ship('destroyer', 2),
-            },
-            {
-                boat: Ship('boat', 1),
-            },
-        ];
+    const player = Player();
+    const computer = Player('computer');
 
-        return ships;
-    };
+    const playerBoard = Gameboard();
+    const computerBoard = Gameboard();
 
-    const placeShipRandomly = (gameboard, ship) => {
-        const [y, x] = randomCoords();
-        const orientation = randomOrientation();
+    const playerShips = createShips();
+    const computerShips = createShips();
 
-        gameboard.placeShip(ship, orientation, y, x);
-    };
+    const startGame = () => {
+        playerShips.forEach((ship) => playerBoard.autoPlaceShip(ship));
+        computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
 
-    const initGame = () => {
-        const player = Player();
-        const computer = Player('computer');
-
-        const playerBoard = Gameboard();
-        const computerBoard = Gameboard();
-
-        const playerShips = createShips();
-        const computerShips = createShips();
-
-        playerShips.forEach((ship) => {
-            placeShipRandomly(playerBoard, ship);
-        });
+        console.log(playerBoard.getBoard());
+        console.log(computerBoard.getBoard());
     };
 
     return {
-        initGame,
+        startGame,
     };
 };
 

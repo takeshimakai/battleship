@@ -1,3 +1,5 @@
+import { randomCoords, randomOrientation } from './helpers';
+
 const Gameboard = () => {
     const board = Array(10).fill(null).map(() => Array(10).fill(null));
     const getBoard = () => board;
@@ -30,23 +32,32 @@ const Gameboard = () => {
     };
 
     const placeShip = (ship, orientation, y, x) => {
-        const cellsAreEmpty = isValidPlacement(ship, orientation, y, x);
-
-        if (cellsAreEmpty) {
-            if (orientation === 'horizontal') {
-                let index = 0;
-                for (let i = x; i < x + ship.length; i++) {
-                    board[y][i] = { ship, index, hit: false };
-                    index += 1;
-                }
-            } else if (orientation === 'vertical') {
-                let index = 0;
-                for (let i = y; i < y + ship.length; i++) {
-                    board[i][x] = { ship, index, hit: false };
-                    index += 1;
-                }
+        if (orientation === 'horizontal') {
+            let index = 0;
+            for (let i = x; i < x + ship.length; i++) {
+                board[y][i] = { ship, index, hit: false };
+                index += 1;
             }
-            placedShips.push(ship);
+        } else if (orientation === 'vertical') {
+            let index = 0;
+            for (let i = y; i < y + ship.length; i++) {
+                board[i][x] = { ship, index, hit: false };
+                index += 1;
+            }
+        }
+        placedShips.push(ship);
+    };
+
+    const autoPlaceShip = (ship) => {
+        const [y, x] = randomCoords();
+        const orientation = randomOrientation();
+
+        const isValid = isValidPlacement(ship, orientation, y, x);
+
+        if (isValid) {
+            placeShip(ship, orientation, y, x);
+        } else {
+            autoPlaceShip(ship);
         }
     };
 
@@ -65,8 +76,8 @@ const Gameboard = () => {
 
     return {
         getBoard,
-        isValidPlacement,
         placeShip,
+        autoPlaceShip,
         receiveAttack,
         allShipsSunk,
     };
