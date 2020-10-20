@@ -12,16 +12,33 @@ const gameLogic = () => {
     const playerShips = createShips();
     const computerShips = createShips();
 
+    const whoseTurn = 'player';
+
     const startGame = () => {
         playerShips.forEach((ship) => playerBoard.autoPlaceShip(ship));
         computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
+    };
 
-        console.log(playerBoard.getBoard());
-        console.log(computerBoard.getBoard());
+    const changeTurns = () => (whoseTurn === 'player' ? 'computer' : 'player');
+
+    const checkGameOver = () => {
+        let winner;
+        if (playerBoard.allShipsSunk()) {
+            winner = 'computer';
+        } else if (computerBoard.allShipsSunk()) {
+            winner = 'player';
+        }
+        return winner;
     };
 
     return {
+        player,
+        computer,
+        playerBoard,
+        computerBoard,
         startGame,
+        changeTurns,
+        checkGameOver,
     };
 };
 
