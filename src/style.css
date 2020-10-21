@@ -15,7 +15,7 @@
     display: flex;
 }
 
-.square {
+.human-square, .computer-square {
     width: 100%;
     border: 1px solid black;
     background-color: lightblue;

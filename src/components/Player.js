@@ -1,6 +1,6 @@
 import { randomCoords } from './helpers';
 
-const Player = (type = 'human') => {
+const Player = () => {
     const attack = (y, x, board) => board.receiveAttack(y, x);
 
     const autoAttack = (board) => {
@@ -16,7 +16,6 @@ const Player = (type = 'human') => {
     };
 
     return {
-        type,
         attack,
         autoAttack,
     };

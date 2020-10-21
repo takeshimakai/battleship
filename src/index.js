@@ -1,16 +1,13 @@
 import './style.css';
+import Game from './components/Game';
 import dom from './components/dom';
-import gameLogic from './components/gameLogic';
 
-const game = gameLogic();
+const game = Game();
 const domFunc = dom();
 
-domFunc.renderGrid(game.playerBoard.getBoard(), 'player');
-domFunc.renderGrid(game.computerBoard.getBoard(), 'computer');
 domFunc.renderStartBtn();
+domFunc.renderGrid(game.humanBoard.getBoard(), 'human');
+domFunc.renderGrid(game.computerBoard.getBoard(), 'computer');
 
 const startBtn = document.querySelector('#start-btn');
-
-startBtn.addEventListener('click', () => {
-    domFunc.updateSquare(0, 2);
-});
+startBtn.addEventListener('click', () => game.startGame());

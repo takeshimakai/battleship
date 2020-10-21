@@ -1,6 +1,6 @@
-const content = document.querySelector('#content');
-
 const dom = () => {
+    const content = document.querySelector('#content');
+
     const createElement = (type, className, id) => {
         const element = document.createElement(type);
         element.setAttribute('class', className);
@@ -17,7 +17,7 @@ const dom = () => {
         for (let i = 0; i < board.length; i++) {
             const gridRow = createElement('div', 'grid-row');
             for (let j = 0; j < board[i].length; j++) {
-                const square = createElement('div', 'square');
+                const square = createElement('div', `${player}-square`);
                 square.setAttribute('data-y', i);
                 square.setAttribute('data-x', j);
                 gridRow.appendChild(square);
@@ -25,8 +25,8 @@ const dom = () => {
             gridContainer.appendChild(gridRow);
         }
 
-        if (player === 'player') {
-            boardTitle.textContent = 'Player';
+        if (player === 'human') {
+            boardTitle.textContent = 'Human';
         } else {
             boardTitle.textContent = 'Computer';
         }
@@ -41,33 +41,45 @@ const dom = () => {
         content.appendChild(startBtn);
     };
 
-    const getCoords = (e) => {
+    const getSelectors = (e) => {
+        const className = e.target.getAttribute('class');
         const y = e.target.getAttribute('data-y');
         const x = e.target.getAttribute('data-x');
 
-        return [y, x];
-    };
-
-    const updateSquare = (board, y, x) => {
-        const targetSquare = document.querySelector(`[data-y='${y}'][data-x='${x}']`);
-
-        if (board[y][x].ship && board[y][x].hit === false) {
-            targetSquare.style.backgroundColor = 'red';
-            targetSquare.textContent = 'X';
-        } else {
-            targetSquare.style.backgroundColor = 'red';
-        }
+        return [className, y, x];
     };
 
     const populateGrid = (board, player) => {
-        
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                if (board[i][j] !== null) {
+                    const square = document.querySelector(`.${player}-square[data-y='${i}'][data-x='${j}']`);
+                    square.style.backgroundColor = '#303030';
+                }
+            }
+        }
+    };
+
+    const updateGrid = (board, className) => {
+        for (let i = 0; i < board.length; i++) {
+            for (let j = 0; j < board[i].length; j++) {
+                const square = document.querySelector(`.${className}[data-y='${i}'][data-x='${j}']`);
+                if (board[i][j] !== null && board[i][j].ship && board[i][j].hit === true) {
+                    square.style.backgroundColor = 'red';
+                    square.textContent = 'X';
+                } else if (board[i][j] !== null && board[i][j].hit === true) {
+                    square.style.backgroundColor = 'red';
+                }
+            }
+        }
     };
 
     return {
         renderGrid,
         renderStartBtn,
-        getCoords,
-        updateSquare,
+        getSelectors,
+        populateGrid,
+        updateGrid,
     };
 };
 
