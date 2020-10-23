@@ -27,3 +27,11 @@
     justify-content: center;
     align-items: center;
 }
+
+/* Winner announcement */
+#announcement-box {
+    position: fixed;
+    left: 0;
+    right: 0;
+    margin: auto;
+}

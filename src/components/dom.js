@@ -74,12 +74,20 @@ const dom = () => {
         }
     };
 
+    const announceWinner = (winner) => {
+        const announcementBox = createElement('h1', 'box', 'announcement-box');
+        announcementBox.textContent = `${winner} wins!`;
+
+        content.appendChild(announcementBox);
+    };
+
     return {
         renderGrid,
         renderStartBtn,
         getSelectors,
         populateGrid,
         updateGrid,
+        announceWinner,
     };
 };
 

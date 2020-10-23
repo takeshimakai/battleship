@@ -16,7 +16,12 @@ const Game = () => {
     const computerShips = createShips();
 
     let gameStarted = false;
-    let whoseTurn = 'human';
+
+    const initContent = () => {
+        domFunc.renderStartBtn();
+        domFunc.renderGrid(humanBoard.getBoard(), 'human');
+        domFunc.renderGrid(computerBoard.getBoard(), 'computer');
+    };
 
     const startGame = () => {
         if (gameStarted === false) {
@@ -30,39 +35,37 @@ const Game = () => {
         }
     };
 
-    const changeTurns = () => (whoseTurn === 'human' ? 'computer' : 'human');
-
     const checkGameOver = () => {
         let winner;
         if (humanBoard.allShipsSunk()) {
-            winner = 'computer';
+            winner = 'Computer';
         } else if (computerBoard.allShipsSunk()) {
-            winner = 'human';
+            winner = 'Human';
         }
-        return winner;
+
+        if (winner !== undefined) {
+            domFunc.announceWinner(winner);
+        }
     };
 
-    const playerAttack = (e) => {
+    const humanAttack = (e) => {
         const [className, y, x] = domFunc.getSelectors(e);
 
-        if (whoseTurn === 'human') {
-            human.attack(y, x, computerBoard);
-            domFunc.updateGrid(computerBoard.getBoard(), className);
-        } else {
-            computer.autoAttack(humanBoard);
-        }
+        human.attack(y, x, computerBoard);
+        domFunc.updateGrid(computerBoard.getBoard(), className);
+    };
 
-        whoseTurn = changeTurns();
+    const computerAttack = () => {
+        computer.autoAttack(humanBoard);
+        domFunc.updateGrid(humanBoard.getBoard(), 'human-square');
     };
 
     return {
-        human,
-        computer,
-        humanBoard,
-        computerBoard,
+        initContent,
         startGame,
         checkGameOver,
-        playerAttack,
+        humanAttack,
+        computerAttack,
     };
 };
 
