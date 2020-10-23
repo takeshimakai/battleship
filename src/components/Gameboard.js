@@ -74,12 +74,17 @@ const Gameboard = () => {
 
     const allShipsSunk = () => placedShips.every((ship) => ship.isSunk());
 
+    const resetBoard = () => {
+        board.forEach((arr) => arr.fill(null));
+    };
+
     return {
         getBoard,
         placeShip,
         autoPlaceShip,
         receiveAttack,
         allShipsSunk,
+        resetBoard,
     };
 };
 

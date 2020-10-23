@@ -1,5 +1,7 @@
 const dom = () => {
     const content = document.querySelector('#content');
+    const btnSection = document.querySelector('#buttons-section');
+    const gridSection = document.querySelector('#grids-section');
 
     const createElement = (type, className, id) => {
         const element = document.createElement(type);
@@ -32,13 +34,19 @@ const dom = () => {
         }
 
         gridContainer.prepend(boardTitle);
-        content.appendChild(gridContainer);
+        gridSection.appendChild(gridContainer);
     };
 
     const renderStartBtn = () => {
         const startBtn = createElement('button', 'btn', 'start-btn');
         startBtn.textContent = 'Start Game';
-        content.appendChild(startBtn);
+        btnSection.appendChild(startBtn);
+    };
+
+    const renderResetBtn = () => {
+        const resetBtn = createElement('button', 'btn', 'reset-btn');
+        resetBtn.textContent = 'Reset Game';
+        btnSection.appendChild(resetBtn);
     };
 
     const getSelectors = (e) => {
@@ -74,6 +82,14 @@ const dom = () => {
         }
     };
 
+    const clearGrid = (player) => {
+        const squares = document.querySelectorAll(`.${player}-square`);
+        squares.forEach((square) => {
+            square.textContent = '';
+            square.style.backgroundColor = 'lightblue';
+        });
+    };
+
     const announceWinner = (winner) => {
         const announcementBox = createElement('h1', 'box', 'announcement-box');
         announcementBox.textContent = `${winner} wins!`;
@@ -84,9 +100,11 @@ const dom = () => {
     return {
         renderGrid,
         renderStartBtn,
+        renderResetBtn,
         getSelectors,
         populateGrid,
         updateGrid,
+        clearGrid,
         announceWinner,
     };
 };

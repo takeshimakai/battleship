@@ -139,3 +139,27 @@ test('allShipsSunk() returns true when all ships sunk', () => {
 
     expect(gameboard.allShipsSunk()).toEqual(true);
 });
+
+describe('resetBoard() functionality', () => {
+    test('resets board', () => {
+        const ship = Ship('ship', 4);
+
+        gameboard.autoPlaceShip(ship);
+        gameboard.resetBoard();
+
+        expect(gameboard.getBoard()).toEqual(
+            [
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+                [null, null, null, null, null, null, null, null, null, null],
+            ],
+        )
+    })
+});

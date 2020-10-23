@@ -19,6 +19,7 @@ const Game = () => {
 
     const initContent = () => {
         domFunc.renderStartBtn();
+        domFunc.renderResetBtn();
         domFunc.renderGrid(humanBoard.getBoard(), 'human');
         domFunc.renderGrid(computerBoard.getBoard(), 'computer');
     };
@@ -33,6 +34,16 @@ const Game = () => {
 
             gameStarted = true;
         }
+    };
+
+    const resetGame = () => {
+        gameStarted = false;
+
+        humanBoard.resetBoard();
+        computerBoard.resetBoard();
+
+        domFunc.clearGrid('human');
+        domFunc.clearGrid('computer');
     };
 
     const checkGameOver = () => {
@@ -61,8 +72,10 @@ const Game = () => {
     };
 
     return {
+        gameStarted,
         initContent,
         startGame,
+        resetGame,
         checkGameOver,
         humanAttack,
         computerAttack,
