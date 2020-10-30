@@ -22,8 +22,8 @@
 
 /* Grid */
 .grid-container {
-    width: 500px;
-    height: 500px;
+    min-width: 400px;
+    height: 400px;
     display: grid;
     border: 1px solid black;
     border-radius: 5px;

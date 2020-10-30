@@ -9,15 +9,11 @@ const startBtn = document.querySelector('#start-btn');
 const resetBtn = document.querySelector('#reset-btn');
 const computerSquares = document.querySelectorAll('.computer-square');
 
-startBtn.addEventListener('click', () => {
-    game.startGame();
+startBtn.addEventListener('click', () => game.startGame());
 
-    computerSquares.forEach((square) => {
-        square.addEventListener('click', (e) => {
-            game.humanAttack(e);
-            game.computerAttack();
-            game.checkGameOver();
-        }, { once: true });
+computerSquares.forEach((square) => {
+    square.addEventListener('click', (e) => {
+        game.gameSequence(e);
     });
 });
 
