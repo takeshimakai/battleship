@@ -6,3 +6,8 @@ This project is to learn about Test Driven Development (TDD) using Jest.
 - ESLint
 - Webpack
 - Jest
+
+## Note to self
+- Fix game reset
+    - Disable winner announcement
+    - Board only allows 1 click after game reset
