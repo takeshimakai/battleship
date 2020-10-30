@@ -16,6 +16,7 @@ const Game = () => {
     const computerShips = createShips();
 
     let gameStarted = false;
+    let gridPopulated = false;
 
     const initContent = () => {
         domFunc.renderStartBtn();
@@ -25,7 +26,7 @@ const Game = () => {
     };
 
     const startGame = () => {
-        if (gameStarted === false) {
+        if (gameStarted === false && gridPopulated === false) {
             humanShips.forEach((ship) => humanBoard.autoPlaceShip(ship));
             computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
 
@@ -33,11 +34,13 @@ const Game = () => {
             domFunc.populateGrid(computerBoard.getBoard(), 'computer');
 
             gameStarted = true;
+            gridPopulated = true;
         }
     };
 
     const resetGame = () => {
         gameStarted = false;
+        gridPopulated = false;
 
         humanBoard.resetBoard();
         computerBoard.resetBoard();
@@ -47,38 +50,44 @@ const Game = () => {
     };
 
     const checkGameOver = () => {
-        let winner;
+        let winner = '';
         if (humanBoard.allShipsSunk()) {
             winner = 'Computer';
         } else if (computerBoard.allShipsSunk()) {
             winner = 'Human';
         }
 
-        if (winner !== undefined) {
+        if (winner !== '') {
             domFunc.announceWinner(winner);
+            gameStarted = false;
         }
     };
 
-    const humanAttack = (e) => {
-        const [className, y, x] = domFunc.getSelectors(e);
+    const gameSequence = (e) => {
+        const {
+            className,
+            y,
+            x,
+            clicked,
+        } = domFunc.getSelectors(e);
 
-        human.attack(y, x, computerBoard);
-        domFunc.updateGrid(computerBoard.getBoard(), className);
-    };
+        if (clicked === 'false' && gameStarted === true) {
+            human.attack(y, x, computerBoard);
+            domFunc.updateGrid(computerBoard.getBoard(), className);
 
-    const computerAttack = () => {
-        computer.autoAttack(humanBoard);
-        domFunc.updateGrid(humanBoard.getBoard(), 'human-square');
+            computer.autoAttack(humanBoard);
+            domFunc.updateGrid(humanBoard.getBoard(), 'human-square');
+
+            checkGameOver();
+            e.target.setAttribute('data-clicked', 'true');
+        }
     };
 
     return {
-        gameStarted,
         initContent,
         startGame,
         resetGame,
-        checkGameOver,
-        humanAttack,
-        computerAttack,
+        gameSequence,
     };
 };
 

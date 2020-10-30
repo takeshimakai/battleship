@@ -1,5 +1,4 @@
 const dom = () => {
-    const content = document.querySelector('#content');
     const btnSection = document.querySelector('#buttons-section');
     const gridSection = document.querySelector('#grids-section');
 
@@ -22,6 +21,7 @@ const dom = () => {
                 const square = createElement('div', `${player}-square`);
                 square.setAttribute('data-y', i);
                 square.setAttribute('data-x', j);
+                square.setAttribute('data-clicked', 'false');
                 gridRow.appendChild(square);
             }
             gridContainer.appendChild(gridRow);
@@ -53,8 +53,14 @@ const dom = () => {
         const className = e.target.getAttribute('class');
         const y = e.target.getAttribute('data-y');
         const x = e.target.getAttribute('data-x');
+        const clicked = e.target.getAttribute('data-clicked');
 
-        return [className, y, x];
+        return {
+            className,
+            y,
+            x,
+            clicked,
+        };
     };
 
     const populateGrid = (board, player) => {
@@ -94,7 +100,7 @@ const dom = () => {
         const announcementBox = createElement('h1', 'box', 'announcement-box');
         announcementBox.textContent = `${winner} wins!`;
 
-        content.appendChild(announcementBox);
+        gridSection.appendChild(announcementBox);
     };
 
     return {
