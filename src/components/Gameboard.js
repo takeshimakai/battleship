@@ -4,7 +4,7 @@ const Gameboard = () => {
     const board = Array(10).fill(null).map(() => Array(10).fill(null));
     const getBoard = () => board;
 
-    const placedShips = [];
+    let placedShips = [];
 
     const isValidPlacement = (ship, orientation, y, x) => {
         if (orientation === 'horizontal') {
@@ -74,7 +74,10 @@ const Gameboard = () => {
 
     const allShipsSunk = () => placedShips.every((ship) => ship.isSunk());
 
-    const resetBoard = () => board.forEach((arr) => arr.fill(null));
+    const resetBoard = () => {
+        board.forEach((arr) => arr.fill(null));
+        placedShips = [];
+    };
 
     return {
         getBoard,

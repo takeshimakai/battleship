@@ -12,8 +12,8 @@ const Game = () => {
     const humanBoard = Gameboard();
     const computerBoard = Gameboard();
 
-    const humanShips = createShips();
-    const computerShips = createShips();
+    let humanShips;
+    let computerShips;
 
     let gameStarted = false;
     let gridPopulated = false;
@@ -27,6 +27,9 @@ const Game = () => {
 
     const startGame = () => {
         if (gameStarted === false && gridPopulated === false) {
+            humanShips = createShips();
+            computerShips = createShips();
+
             humanShips.forEach((ship) => humanBoard.autoPlaceShip(ship));
             computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
 
@@ -45,8 +48,13 @@ const Game = () => {
         humanBoard.resetBoard();
         computerBoard.resetBoard();
 
-        domFunc.clearGrid('human');
-        domFunc.clearGrid('computer');
+        humanShips = [];
+        computerShips = [];
+
+        domFunc.resetGrid('human');
+        domFunc.resetGrid('computer');
+
+        domFunc.removeAnnouncement();
     };
 
     const checkGameOver = () => {
@@ -71,7 +79,7 @@ const Game = () => {
             clicked,
         } = domFunc.getSelectors(e);
 
-        if (clicked === 'false' && gameStarted === true) {
+        if (gameStarted === true && clicked === 'false') {
             human.attack(y, x, computerBoard);
             domFunc.updateGrid(computerBoard.getBoard(), className);
 

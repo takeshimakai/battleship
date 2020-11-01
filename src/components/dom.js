@@ -88,11 +88,12 @@ const dom = () => {
         }
     };
 
-    const clearGrid = (player) => {
+    const resetGrid = (player) => {
         const squares = document.querySelectorAll(`.${player}-square`);
         squares.forEach((square) => {
             square.textContent = '';
             square.style.backgroundColor = 'lightblue';
+            square.setAttribute('data-clicked', 'false');
         });
     };
 
@@ -103,6 +104,12 @@ const dom = () => {
         gridSection.appendChild(announcementBox);
     };
 
+    const removeAnnouncement = () => {
+        if (document.querySelector('#announcement-box')) {
+            document.querySelector('#announcement-box').remove();
+        }
+    };
+
     return {
         renderGrid,
         renderStartBtn,
@@ -110,8 +117,9 @@ const dom = () => {
         getSelectors,
         populateGrid,
         updateGrid,
-        clearGrid,
+        resetGrid,
         announceWinner,
+        removeAnnouncement,
     };
 };
 
