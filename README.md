@@ -8,6 +8,5 @@ This project is to learn about Test Driven Development (TDD) using Jest.
 - Jest
 
 ## Note to self
-- Fix game reset
-    - Disable winner announcement
-    - Board only allows 1 click after game reset
+- Hide computer board
+- Allow players to place ships manually
