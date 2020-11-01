@@ -12,6 +12,7 @@
 #grids-section {
     display: flex;
     justify-content: center;
+    align-items: center;
 }
 
 #buttons-section {
@@ -50,7 +51,8 @@
 /* Winner announcement */
 #announcement-box {
     position: absolute;
-    left: 0;
-    right: 0;
-    margin: auto;
+    transform: rotate(20deg);
+    font-size: 100px;
+    color: khaki;
+    text-shadow: 3px 3px black;
 }
