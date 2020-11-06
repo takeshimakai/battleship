@@ -30,11 +30,13 @@ const Game = () => {
             humanShips = createShips();
             computerShips = createShips();
 
-            humanShips.forEach((ship) => humanBoard.autoPlaceShip(ship));
-            computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
+            domFunc.renderShips(humanShips);
 
-            domFunc.populateGrid(humanBoard.getBoard(), 'human');
-            domFunc.populateGrid(computerBoard.getBoard(), 'computer');
+            //humanShips.forEach((ship) => humanBoard.autoPlaceShip(ship));
+            //computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
+
+            //domFunc.populateGrid(humanBoard.getBoard(), 'human');
+            //domFunc.populateGrid(computerBoard.getBoard(), 'computer');
 
             gameStarted = true;
             gridPopulated = true;

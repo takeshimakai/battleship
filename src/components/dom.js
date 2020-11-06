@@ -1,8 +1,9 @@
 const dom = () => {
     const btnSection = document.querySelector('#buttons-section');
     const gridSection = document.querySelector('#grids-section');
+    const shipSection = document.querySelector('#ships-section');
 
-    const createElement = (type, className, id) => {
+    const newElement = (type, className, id) => {
         const element = document.createElement(type);
         element.setAttribute('class', className);
         if (id !== undefined) {
@@ -12,13 +13,14 @@ const dom = () => {
     };
 
     const renderGrid = (board, player) => {
-        const gridContainer = createElement('div', 'grid-container', `${player}-grid`);
-        const boardTitle = createElement('h3', 'board-title');
+        const playerContainer = newElement('div', 'player-container', `${player}-container`);
+        const gridContainer = newElement('div', 'grid-container', `${player}-grid`);
+        const boardTitle = newElement('h3', 'board-title');
 
         for (let i = 0; i < board.length; i++) {
-            const gridRow = createElement('div', 'grid-row');
+            const gridRow = newElement('div', 'grid-row');
             for (let j = 0; j < board[i].length; j++) {
-                const square = createElement('div', `${player}-square`);
+                const square = newElement('div', `${player}-square`);
                 square.setAttribute('data-y', i);
                 square.setAttribute('data-x', j);
                 square.setAttribute('data-clicked', 'false');
@@ -33,18 +35,18 @@ const dom = () => {
             boardTitle.textContent = 'Computer';
         }
 
-        gridContainer.prepend(boardTitle);
-        gridSection.appendChild(gridContainer);
+        playerContainer.append(boardTitle, gridContainer);
+        gridSection.appendChild(playerContainer);
     };
 
     const renderStartBtn = () => {
-        const startBtn = createElement('button', 'btn', 'start-btn');
+        const startBtn = newElement('button', 'btn', 'start-btn');
         startBtn.textContent = 'Start Game';
         btnSection.appendChild(startBtn);
     };
 
     const renderResetBtn = () => {
-        const resetBtn = createElement('button', 'btn', 'reset-btn');
+        const resetBtn = newElement('button', 'btn', 'reset-btn');
         resetBtn.textContent = 'Reset Game';
         btnSection.appendChild(resetBtn);
     };
@@ -98,7 +100,7 @@ const dom = () => {
     };
 
     const announceWinner = (winner) => {
-        const announcementBox = createElement('h1', 'box', 'announcement-box');
+        const announcementBox = newElement('h1', 'box', 'announcement-box');
         announcementBox.textContent = `${winner} wins!`;
 
         gridSection.appendChild(announcementBox);
@@ -108,6 +110,19 @@ const dom = () => {
         if (document.querySelector('#announcement-box')) {
             document.querySelector('#announcement-box').remove();
         }
+    };
+
+    const renderShips = (ships) => {
+        ships.forEach((ship) => {
+            const shipElement = newElement('div', 'ship', `${ship.name}`);
+
+            for (let i = 0; i < ship.length; i++) {
+                const shipSquare = newElement('div', 'ship-square', `${ship.name}-square`);
+                shipElement.appendChild(shipSquare);
+            }
+
+            shipSection.appendChild(shipElement);
+        });
     };
 
     return {
@@ -120,6 +135,7 @@ const dom = () => {
         resetGrid,
         announceWinner,
         removeAnnouncement,
+        renderShips,
     };
 };
 
