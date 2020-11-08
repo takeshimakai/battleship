@@ -10,4 +10,3 @@ This project is to learn about Test Driven Development (TDD) using Jest.
 ## Note to self
 - Hide computer board
 - Allow players to place ships manually
-- Prevent reset button to start game
