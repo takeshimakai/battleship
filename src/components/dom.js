@@ -51,6 +51,12 @@ const dom = () => {
         btnSection.appendChild(resetBtn);
     };
 
+    const renderAutoPlaceBtn = () => {
+        const autoPlaceBtn = newElement('button', 'btn', 'auto-place-btn');
+        autoPlaceBtn.textContent = 'Auto Place Ships';
+        btnSection.appendChild(autoPlaceBtn);
+    };
+
     const getSelectors = (e) => {
         const className = e.target.getAttribute('class');
         const y = e.target.getAttribute('data-y');
@@ -115,6 +121,7 @@ const dom = () => {
     const renderShips = (ships) => {
         ships.forEach((ship) => {
             const shipElement = newElement('div', 'ship', `${ship.name}`);
+            shipElement.setAttribute('draggable', 'true');
 
             for (let i = 0; i < ship.length; i++) {
                 const shipSquare = newElement('div', 'ship-square', `${ship.name}-square`);
@@ -129,6 +136,7 @@ const dom = () => {
         renderGrid,
         renderStartBtn,
         renderResetBtn,
+        renderAutoPlaceBtn,
         getSelectors,
         populateGrid,
         updateGrid,

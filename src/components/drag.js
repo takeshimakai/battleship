@@ -1,23 +1,18 @@
-const drag = () => {
-    const testElement = document.createElement('div');
-    testElement.setAttribute('id', 'test');
-    testElement.setAttribute('draggable', 'true');
-    testElement.style.width = '50px';
-    testElement.style.height = '50px';
-    testElement.style.border = 'solid 2px black';
-    testElement.style.backgroundColor = 'purple';
-
-    const destinationElement = document.createElement('div');
-    destinationElement.setAttribute('id', 'test-dest');
-    destinationElement.style.width = '100px';
-    destinationElement.style.height = '100px';
-    destinationElement.style.border = 'solid 2px black';
-    destinationElement.style.backgroundColor = 'yellow';
-
-    return {
-        testElement,
-        destinationElement,
-    };
+const dragStart = (e) => {
+    e.dataTransfer.setData('text', e.target.id);
 };
 
-export default drag;
+const dragOver = (e) => {
+    e.preventDefault();
+};
+
+const drop = (e) => {
+    e.preventDefault();
+    const data = e.dataTransfer.getData('text');
+
+    const ship = document.querySelector(`#${data}`);
+
+    e.target.appendChild(ship);
+};
+
+export { dragStart, dragOver, drop };
