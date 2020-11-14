@@ -45,6 +45,7 @@ const Gameboard = () => {
                 index += 1;
             }
         }
+        ship.isPlaced = true;
         placedShips.push(ship);
     };
 
@@ -81,6 +82,7 @@ const Gameboard = () => {
 
     return {
         getBoard,
+        isValidPlacement,
         placeShip,
         autoPlaceShip,
         receiveAttack,

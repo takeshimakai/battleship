@@ -1,6 +1,6 @@
 import './style.css';
 import Game from './components/Game';
-import { dragStart, dragOver, drop } from './components/drag';
+import { dragStart, dragOver } from './components/drag';
 
 const game = Game();
 
@@ -29,4 +29,4 @@ humanShips.forEach((ship) => ship.addEventListener('dragstart', (e) => dragStart
 
 humanGrid.addEventListener('dragover', (e) => dragOver(e));
 
-humanGrid.addEventListener('drop', (e) => drop(e));
+humanGrid.addEventListener('drop', (e) => game.humanManualPlaceShip(e));

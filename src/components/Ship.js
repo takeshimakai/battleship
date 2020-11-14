@@ -1,4 +1,6 @@
 const Ship = (name, length) => {
+    const isPlaced = false;
+
     const health = [];
     const getHealth = () => health;
 
@@ -14,6 +16,7 @@ const Ship = (name, length) => {
     const isSunk = () => health.every((item) => item === 'x');
 
     return {
+        isPlaced,
         name,
         length,
         getHealth,

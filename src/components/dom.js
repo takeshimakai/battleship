@@ -59,8 +59,8 @@ const dom = () => {
 
     const getSelectors = (e) => {
         const className = e.target.getAttribute('class');
-        const y = e.target.getAttribute('data-y');
-        const x = e.target.getAttribute('data-x');
+        const y = Number(e.target.getAttribute('data-y'));
+        const x = Number(e.target.getAttribute('data-x'));
         const clicked = e.target.getAttribute('data-clicked');
 
         return {

@@ -11,18 +11,19 @@ const dragOver = (e) => {
     e.dataTransfer.dropEffect = 'copy';
 };
 
-const drop = (e) => {
+const getDropCoords = (e) => {
     e.preventDefault();
-    const data = e.dataTransfer.getData('text');
+    //const data = e.dataTransfer.getData('text');
 
     const { y, x } = domFunc.getSelectors(e);
 
-    const shipSquares = document.querySelector(`#${data}`).children;
+    //const shipSquares = document.querySelector(`#${data}`).children;
 
-    for (let i = 0; i < shipSquares.length; i++) {
-        const dropTarget = document.querySelector(`[data-y='${y}'][data-x='${Number(x) + i}']`);
-        dropTarget.appendChild(shipSquares[i].cloneNode());
-    }
+    //for (let i = 0; i < shipSquares.length; i++) {
+    //    const dropTarget = document.querySelector(`[data-y='${y}'][data-x='${Number(x) + i}']`);
+    //    dropTarget.appendChild(shipSquares[i].cloneNode());
+    //}
+    return { y, x };
 };
 
-export { dragStart, dragOver, drop };
+export { dragStart, dragOver, getDropCoords };

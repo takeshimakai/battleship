@@ -56,18 +56,50 @@ const Game = () => {
 
         domFunc.removeAnnouncement();
 
-        document.querySelectorAll('.ship').forEach((ship) => ship.classList.remove('placed-ship'));
+        document.querySelectorAll('.ship').forEach((ship) => {
+            ship.classList.remove('placed-ship');
+            ship.setAttribute('draggable', 'true');
+        });
     };
+
+    // Human ship placement
+    const checkAllShipsPlaced = (ships) => ships.every((ship) => ship.isPlaced === true);
 
     const humanAutoPlaceShips = () => {
         if (shipsPlaced === false) {
+            humanBoard.resetBoard();
+            domFunc.resetGrid('human');
+
             humanShips.forEach((ship) => humanBoard.autoPlaceShip(ship));
 
             domFunc.populateGrid(humanBoard.getBoard(), 'human');
 
-            document.querySelectorAll('.ship').forEach((ship) => ship.classList.add('placed-ship'));
+            document.querySelectorAll('.ship').forEach((ship) => {
+                ship.classList.add('placed-ship');
+                ship.setAttribute('draggable', 'false');
+            });
 
             shipsPlaced = true;
+        }
+    };
+
+    const humanManualPlaceShip = (e) => {
+        const { y, x } = domFunc.getSelectors(e);
+        const data = e.dataTransfer.getData('text');
+        const ship = humanShips.find((item) => item.name === data);
+        const isValid = humanBoard.isValidPlacement(ship, 'horizontal', y, x);
+
+        if (isValid) {
+            humanBoard.placeShip(ship, 'horizontal', y, x);
+            domFunc.populateGrid(humanBoard.getBoard(), 'human');
+
+            const shipContainer = document.querySelector(`#${data}`);
+            shipContainer.classList.add('placed-ship');
+            shipContainer.setAttribute('draggable', 'false');
+
+            if (checkAllShipsPlaced(humanShips)) {
+                shipsPlaced = true;
+            }
         }
     };
 
@@ -111,6 +143,7 @@ const Game = () => {
         startGame,
         resetGame,
         humanAutoPlaceShips,
+        humanManualPlaceShip,
         gameSequence,
     };
 };
