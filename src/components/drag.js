@@ -1,18 +1,28 @@
+import dom from './dom';
+
+const domFunc = dom();
+
 const dragStart = (e) => {
     e.dataTransfer.setData('text', e.target.id);
 };
 
 const dragOver = (e) => {
     e.preventDefault();
+    e.dataTransfer.dropEffect = 'copy';
 };
 
 const drop = (e) => {
     e.preventDefault();
     const data = e.dataTransfer.getData('text');
 
-    const ship = document.querySelector(`#${data}`);
+    const { y, x } = domFunc.getSelectors(e);
 
-    e.target.appendChild(ship);
+    const shipSquares = document.querySelector(`#${data}`).children;
+
+    for (let i = 0; i < shipSquares.length; i++) {
+        const dropTarget = document.querySelector(`[data-y='${y}'][data-x='${Number(x) + i}']`);
+        dropTarget.appendChild(shipSquares[i].cloneNode());
+    }
 };
 
 export { dragStart, dragOver, drop };

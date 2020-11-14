@@ -124,7 +124,8 @@ const dom = () => {
             shipElement.setAttribute('draggable', 'true');
 
             for (let i = 0; i < ship.length; i++) {
-                const shipSquare = newElement('div', 'ship-square', `${ship.name}-square`);
+                const shipSquare = newElement('div', 'ship-square');
+                shipSquare.classList.add(`${ship.name}-square`);
                 shipElement.appendChild(shipSquare);
             }
 

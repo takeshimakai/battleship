@@ -25,16 +25,8 @@ resetBtn.addEventListener('click', () => game.resetGame());
 
 autoPlaceBtn.addEventListener('click', () => game.humanAutoPlaceShips());
 
-humanShips.forEach((ship) => {
-    ship.addEventListener('dragstart', (e) => {
-        dragStart(e);
-    });
-});
+humanShips.forEach((ship) => ship.addEventListener('dragstart', (e) => dragStart(e)));
 
-humanGrid.addEventListener('dragover', (e) => {
-    dragOver(e);
-});
+humanGrid.addEventListener('dragover', (e) => dragOver(e));
 
-humanGrid.addEventListener('drop', (e) => {
-    drop(e);
-});
+humanGrid.addEventListener('drop', (e) => drop(e));
