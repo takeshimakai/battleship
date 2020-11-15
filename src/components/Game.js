@@ -5,7 +5,6 @@ import dom from './dom';
 
 const Game = () => {
     let gameStarted = false;
-    let shipsPlaced = false;
     let gameover = false;
 
     const domFunc = dom();
@@ -19,6 +18,8 @@ const Game = () => {
     let humanShips = createShips();
     let computerShips = createShips();
 
+    const checkAllShipsPlaced = (ships) => ships.every((ship) => ship.isPlaced === true);
+
     const initContent = () => {
         domFunc.renderStartBtn();
         domFunc.renderResetBtn();
@@ -29,7 +30,7 @@ const Game = () => {
     };
 
     const startGame = () => {
-        if (gameStarted === false && shipsPlaced === true && gameover === false) {
+        if (gameStarted === false && gameover === false && checkAllShipsPlaced(humanShips)) {
             computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
 
             domFunc.populateGrid(computerBoard.getBoard(), 'computer');
@@ -40,7 +41,6 @@ const Game = () => {
 
     const resetGame = () => {
         gameStarted = false;
-        shipsPlaced = false;
         gameover = false;
 
         humanShips = [];
@@ -63,10 +63,8 @@ const Game = () => {
     };
 
     // Human ship placement
-    const checkAllShipsPlaced = (ships) => ships.every((ship) => ship.isPlaced === true);
-
     const humanAutoPlaceShips = () => {
-        if (shipsPlaced === false) {
+        if (gameStarted === false) {
             humanBoard.resetBoard();
             domFunc.resetGrid('human');
 
@@ -78,8 +76,6 @@ const Game = () => {
                 ship.classList.add('placed-ship');
                 ship.setAttribute('draggable', 'false');
             });
-
-            shipsPlaced = true;
         }
     };
 
@@ -96,10 +92,6 @@ const Game = () => {
             const shipContainer = document.querySelector(`#${data}`);
             shipContainer.classList.add('placed-ship');
             shipContainer.setAttribute('draggable', 'false');
-
-            if (checkAllShipsPlaced(humanShips)) {
-                shipsPlaced = true;
-            }
         }
     };
 
