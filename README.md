@@ -9,4 +9,3 @@ This project is to learn about Test Driven Development (TDD) using Jest.
 
 ## Note to self
 - Hide computer board
-- Ability to change ship orientation
