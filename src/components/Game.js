@@ -32,9 +32,6 @@ const Game = () => {
     const startGame = () => {
         if (gameStarted === false && gameover === false && checkAllShipsPlaced(humanShips)) {
             computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
-
-            domFunc.populateGrid(computerBoard.getBoard(), 'computer');
-
             gameStarted = true;
         }
     };
