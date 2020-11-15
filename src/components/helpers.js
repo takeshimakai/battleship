@@ -4,7 +4,7 @@ const randomCoords = () => {
     const y = Math.floor(Math.random() * Math.floor(10));
     const x = Math.floor(Math.random() * Math.floor(10));
 
-    return [y, x];
+    return { y, x };
 };
 
 const randomOrientation = () => {

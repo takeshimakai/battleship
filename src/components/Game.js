@@ -26,7 +26,7 @@ const Game = () => {
         domFunc.renderAutoPlaceBtn();
         domFunc.renderGrid(humanBoard.getBoard(), 'human');
         domFunc.renderGrid(computerBoard.getBoard(), 'computer');
-        domFunc.renderShips(humanShips);
+        humanShips.forEach((ship) => domFunc.renderShip(ship));
     };
 
     const startGame = () => {
@@ -47,6 +47,8 @@ const Game = () => {
         computerShips = [];
         humanShips = createShips();
         computerShips = createShips();
+
+        humanShips.forEach((ship) => domFunc.rotateShip(ship));
 
         humanBoard.resetBoard();
         computerBoard.resetBoard();
@@ -75,6 +77,7 @@ const Game = () => {
             document.querySelectorAll('.ship').forEach((ship) => {
                 ship.classList.add('placed-ship');
                 ship.setAttribute('draggable', 'false');
+                ship.style.flexDirection = 'row';
             });
         }
     };
@@ -83,16 +86,25 @@ const Game = () => {
         const { y, x } = domFunc.getSelectors(e);
         const data = e.dataTransfer.getData('text');
         const ship = humanShips.find((item) => item.name === data);
-        const isValid = humanBoard.isValidPlacement(ship, 'horizontal', y, x);
+        const orientation = ship.getOrientation();
 
-        if (isValid) {
-            humanBoard.placeShip(ship, 'horizontal', y, x);
+        if (humanBoard.isValidPlacement(ship, orientation, y, x)) {
+            humanBoard.placeShip(ship, orientation, y, x);
             domFunc.populateGrid(humanBoard.getBoard(), 'human');
 
             const shipContainer = document.querySelector(`#${data}`);
             shipContainer.classList.add('placed-ship');
             shipContainer.setAttribute('draggable', 'false');
         }
+    };
+
+    const humanRotateShip = (e) => {
+        humanShips.forEach((ship) => {
+            if (ship.name === e.target.parentElement.id && ship.isPlaced === false) {
+                ship.changeOrientation();
+                domFunc.rotateShip(ship);
+            }
+        });
     };
 
     const checkGameOver = () => {
@@ -136,6 +148,7 @@ const Game = () => {
         resetGame,
         humanAutoPlaceShips,
         humanManualPlaceShip,
+        humanRotateShip,
         gameSequence,
     };
 };

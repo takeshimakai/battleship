@@ -118,19 +118,29 @@ const dom = () => {
         }
     };
 
-    const renderShips = (ships) => {
-        ships.forEach((ship) => {
-            const shipElement = newElement('div', 'ship', `${ship.name}`);
-            shipElement.setAttribute('draggable', 'true');
+    const renderShip = (ship) => {
+        const shipContainer = newElement('div', 'ship', `${ship.name}`);
+        shipContainer.setAttribute('draggable', 'true');
+        shipContainer.style.flexDirection = 'row';
 
-            for (let i = 0; i < ship.length; i++) {
-                const shipSquare = newElement('div', 'ship-square');
-                shipSquare.classList.add(`${ship.name}-square`);
-                shipElement.appendChild(shipSquare);
-            }
+        for (let i = 0; i < ship.length; i++) {
+            const shipSquare = newElement('div', 'ship-square');
+            shipSquare.classList.add(`${ship.name}-square`);
+            shipContainer.appendChild(shipSquare);
+        }
 
-            shipSection.appendChild(shipElement);
-        });
+        shipSection.appendChild(shipContainer);
+    };
+
+    const rotateShip = (ship) => {
+        const shipContainer = document.querySelector(`#${ship.name}`);
+        const shipOrientation = ship.getOrientation();
+
+        if (shipOrientation === 'horizontal') {
+            shipContainer.style.flexDirection = 'row';
+        } else {
+            shipContainer.style.flexDirection = 'column';
+        }
     };
 
     return {
@@ -144,7 +154,8 @@ const dom = () => {
         resetGrid,
         announceWinner,
         removeAnnouncement,
-        renderShips,
+        renderShip,
+        rotateShip,
     };
 };
 

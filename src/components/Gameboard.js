@@ -50,13 +50,12 @@ const Gameboard = () => {
     };
 
     const autoPlaceShip = (ship) => {
-        const [y, x] = randomCoords();
         const orientation = randomOrientation();
+        const { y, x } = randomCoords();
 
-        const isValid = isValidPlacement(ship, orientation, y, x);
-
-        if (isValid) {
+        if (isValidPlacement(ship, orientation, y, x)) {
             placeShip(ship, orientation, y, x);
+            ship.orientation = orientation;
         } else {
             autoPlaceShip(ship);
         }

@@ -4,7 +4,7 @@ const Player = () => {
     const attack = (y, x, board) => board.receiveAttack(y, x);
 
     const autoAttack = (board) => {
-        const [y, x] = randomCoords();
+        const { y, x } = randomCoords();
 
         const cell = board.getBoard()[y][x];
 
