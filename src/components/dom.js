@@ -143,6 +143,21 @@ const dom = () => {
         }
     };
 
+    const rotateShipBtn = (e) => {
+        if (!e.target.classList.contains('placed-ship')) {
+            const rotateBtn = newElement('button', 'btn', 'rotate-btn');
+            rotateBtn.innerHTML = '&#8635';
+
+            e.target.appendChild(rotateBtn);
+        }
+    };
+
+    const removeRotateShipBtn = () => {
+        if (document.querySelector('#rotate-btn')) {
+            document.querySelector('#rotate-btn').remove();
+        }
+    };
+
     return {
         renderGrid,
         renderStartBtn,
@@ -156,6 +171,8 @@ const dom = () => {
         removeAnnouncement,
         renderShip,
         rotateShip,
+        rotateShipBtn,
+        removeRotateShipBtn,
     };
 };
 
