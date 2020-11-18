@@ -42,6 +42,7 @@ const dom = () => {
     const renderStartBtn = () => {
         const startBtn = newElement('button', 'btn', 'start-btn');
         startBtn.textContent = 'Start Game';
+        startBtn.disabled = true;
         btnSection.appendChild(startBtn);
     };
 
@@ -105,17 +106,24 @@ const dom = () => {
         });
     };
 
+    const removeAnnouncement = (elementId) => {
+        if (document.querySelector(`#${elementId}`)) {
+            document.querySelector(`#${elementId}`).remove();
+        }
+    };
+
     const announceWinner = (winner) => {
-        const announcementBox = newElement('h1', 'box', 'announcement-box');
+        const announcementBox = newElement('h1', 'box', 'winner-box');
         announcementBox.textContent = `${winner} wins!`;
 
         gridSection.appendChild(announcementBox);
     };
 
-    const removeAnnouncement = () => {
-        if (document.querySelector('#announcement-box')) {
-            document.querySelector('#announcement-box').remove();
-        }
+    const gameStartAnnouncement = () => {
+        const gameStartText = newElement('h1', 'box', 'game-start-box');
+        gameStartText.textContent = 'Fire away!';
+
+        gridSection.appendChild(gameStartText);
     };
 
     const renderShip = (ship) => {
@@ -167,8 +175,9 @@ const dom = () => {
         populateGrid,
         updateGrid,
         resetGrid,
-        announceWinner,
         removeAnnouncement,
+        announceWinner,
+        gameStartAnnouncement,
         renderShip,
         rotateShip,
         rotateShipBtn,

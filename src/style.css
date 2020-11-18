@@ -101,11 +101,19 @@
     opacity: 30%;
 }
 
-/* Winner announcement */
-#announcement-box {
+/* Announcement box */
+.box {
     position: absolute;
-    transform: rotate(20deg);
     font-size: 100px;
-    color: khaki;
     text-shadow: 3px 3px black;
+}
+
+#winner-box {
+    color: khaki;
+    transform: rotate(20deg);
+}
+
+#game-start-box {
+    color: red;
+    transform: rotate(-20deg);
 }

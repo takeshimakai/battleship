@@ -30,8 +30,10 @@ const Game = () => {
     };
 
     const startGame = () => {
-        if (gameStarted === false && gameover === false && checkAllShipsPlaced(humanShips)) {
+        if (gameStarted === false && gameover === false) {
             computerShips.forEach((ship) => computerBoard.autoPlaceShip(ship));
+            domFunc.gameStartAnnouncement();
+            setTimeout(() => domFunc.removeAnnouncement('game-start-box'), 1000);
             gameStarted = true;
         }
     };
@@ -53,12 +55,14 @@ const Game = () => {
         domFunc.resetGrid('human');
         domFunc.resetGrid('computer');
 
-        domFunc.removeAnnouncement();
+        domFunc.removeAnnouncement('winner-box');
 
         document.querySelectorAll('.ship').forEach((ship) => {
             ship.classList.remove('placed-ship');
             ship.setAttribute('draggable', 'true');
         });
+
+        document.querySelector('#start-btn').disabled = true;
     };
 
     // Human ship placement
@@ -76,6 +80,8 @@ const Game = () => {
                 ship.setAttribute('draggable', 'false');
                 ship.style.flexDirection = 'row';
             });
+
+            document.querySelector('#start-btn').disabled = false;
         }
     };
 
@@ -92,6 +98,10 @@ const Game = () => {
             const shipContainer = document.querySelector(`#${data}`);
             shipContainer.classList.add('placed-ship');
             shipContainer.setAttribute('draggable', 'false');
+        }
+
+        if (checkAllShipsPlaced(humanShips)) {
+            document.querySelector('#start-btn').disabled = false;
         }
     };
 
