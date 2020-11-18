@@ -6,6 +6,3 @@ This project is to learn about Test Driven Development (TDD) using Jest.
 - ESLint
 - Webpack
 - Jest
-
-## Note to self
-- Add clear instructions
