@@ -12,7 +12,6 @@
   },
   "author": "",
   "license": "ISC",
-  "homepage": "https://takeshimakai.github.io/battleship",
   "devDependencies": {
     "@babel/preset-env": "^7.11.5",
     "babel-jest": "^26.3.0",
